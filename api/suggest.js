@@ -18,7 +18,9 @@ module.exports = async (req, res) => {
     `**제안자**: ${team} ${name}`,
     "",
     text,
-    ref ? `\n**참고**: ${ref}` : ""
+    ref ? `\n**참고**: ${ref}` : "",
+    "",
+    `<!-- meta ${JSON.stringify({ item, team, name, kind: b.kind === "add" ? "add" : "fix", ref }).replace(/--/g, "- -")} -->`
   ].join("\n");
   try {
     const r = await fetch(`https://api.github.com/repos/${repo}/issues`, {
