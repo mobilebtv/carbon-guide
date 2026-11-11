@@ -644,6 +644,7 @@ code { font-size: .9em; }
   .map-row::before { display: none; }
   .map-row .mn { width: auto; }
 }
+.toast { width: max-content; max-width: min(460px, calc(100vw - 32px)); white-space: normal; text-align: center; line-height: 1.5; border-radius: 14px; padding: 10px 18px; font-size: 13px; font-weight: 600; }
 
 
 /* SUGGEST-WHO */
@@ -684,7 +685,7 @@ code { font-size: .9em; }
   <div class="sgbox" role="dialog" aria-modal="true" aria-labelledby="sgwT">
     <h4 id="sgwT">수정 제안</h4>
     <p class="sgfor" id="sgwFor"></p>
-    <div class="sgwho"><div><label class="f" for="sgwTeam">소속팀</label><input type="text" id="sgwTeam" placeholder="예: 모바일서비스기획팀" autocomplete="organization"></div><div><label class="f" for="sgwName">이름</label><input type="text" id="sgwName" placeholder="예: 홍길동" autocomplete="name"></div></div>
+    <div class="sgwho"><div><label class="f" for="sgwTeam">소속팀</label><input type="text" id="sgwTeam" placeholder="예: 모바일서비스기획팀" autocomplete="organization"></div><div><label class="f" for="sgwName">이름</label><input type="text" id="sgwName" placeholder="예: 김모비" autocomplete="name"></div></div>
     <label class="f">어떤 제안인가요?</label>
     <div class="sgkind"><label><input type="radio" name="sgk" value="fix" checked> 잘못된 내용</label><label><input type="radio" name="sgk" value="add"> 추가할 내용</label></div>
     <label class="f" for="sgwText">어떻게 바뀌어야 하나요?</label>
@@ -698,7 +699,7 @@ code { font-size: .9em; }
 <div class="sgm" id="sgl" hidden>
   <div class="sgbox wide" role="dialog" aria-modal="true" aria-labelledby="sglT">
     <div class="sgrow" style="margin:0 0 4px"><h4 id="sglT" style="margin-right:auto">수정 제안 목록</h4><button type="button" class="sgbtn" data-sgclose>닫기</button></div>
-    <p class="sgfor" id="sglFor">가이드에 대한 수정 제안이에요. 편성 가이드 담당자가 확인하고 반영해요.</p>
+    <p class="sgfor" id="sglFor">가이드에 대한 수정 제안이에요. 배포 버전에서 보낸 제안은 GitHub Issues에서 평일 아침마다, 또는 Claude에게 "제안 가져와줘"라고 하면 가져와요.</p>
     <div class="sgfil" id="sglFil"></div>
     <div class="sglist" id="sglList"></div>
   </div>
@@ -997,7 +998,7 @@ document.addEventListener("keydown", e => {
 });
 
 /* 클릭 */
-const toast = (t) => { const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 1800); };
+const toast = (t, ms = 1800) => { const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, ms); };
 document.addEventListener("click", async e => {
   const tab = e.target.closest("[data-tab]");
   if (tab) { lockId = null; renderCat(tab.dataset.tab); try { history.replaceState(null, "", "#" + tab.dataset.tab); } catch (x) {} window.scrollTo({ top: 0 }); return; }
@@ -1071,7 +1072,7 @@ async function sgSend() {
   try {
     const r = await fetch("/api/suggest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ team, name, text: text.slice(0, 3000), ref: $("#sgwRef").value.trim().slice(0, 500), kind: document.querySelector("input[name=sgk]:checked").value, item: SG.target, title: it ? it.title : "", path: it ? `${c ? c.name + " › " : ""}${it.title}` : "", url: location.origin + location.pathname + "#" + SG.target, website: $("#sgwHp") ? $("#sgwHp").value : "" }) });
     if (!r.ok) throw new Error(String(r.status));
-    $("#sgw").hidden = true; toast("수정 제안을 보냈어요. 고마워요!");
+    $("#sgw").hidden = true; toast("좋은 의견 주셔서 감사해요! 모바일서비스기획팀으로 의견이 전달되었어요. 반영된 사항이 있으면 별도로 알려드릴게요.", 5000);
   } catch (e) { $("#sgwSend").disabled = false; $("#sgwMsg").textContent = "보내지 못했어요. 잠시 후 다시 시도해 주세요."; }
 }
 document.addEventListener("click", e => {
