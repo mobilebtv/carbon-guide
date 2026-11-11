@@ -543,6 +543,7 @@ code { background: none; padding: 0; border-radius: 0; color: var(--ink); }
 .hero .hero-contact { font-size: 13px; margin-top: 28px; padding-top: 16px; }
 .cathead p { font-size: 15px; line-height: 1.75; letter-spacing: -.01em; }
 .item .lead { font-size: 15px; line-height: 1.8; margin: 0 0 22px; }
+.item .lead + p { margin-top: -18px; }
 .note, .note.tip, .note.warn, .note.mixed, .todo { font-size: 13px; line-height: 1.7; padding: 10px 14px !important; }
 .note b.lbl, .todo .lbl { font-size: 12.5px; }
 .checklist { font-size: 13px; line-height: 1.7; }
@@ -609,7 +610,40 @@ body::before { background: var(--head); }
 .ask, .hero .hero-contact { color: var(--ask) !important; gap: 6px; line-height: 1.6; }
 .ask svg, .hero .hero-contact svg { width: 14px; height: 14px; margin-top: calc((1.6em - 14px) / 2); color: var(--ask) !important; opacity: .85; }
 .hero .hero-contact { align-items: flex-start; }
-.hero .hero-note { margin: 6px 0 0; padding-left: 20px; font-size: 12.5px; line-height: 1.6; color: var(--lbl); }
+.hero .hero-note { display: flex; align-items: flex-start; gap: 6px; margin: 4px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--lbl); }
+.hero .hero-note svg { flex: none; width: 14px; height: 14px; margin-top: calc((1.6em - 14px) / 2); opacity: .85; }
+.hero .hero-note { color: var(--ask); }
+
+/* ===== type scale 14 ===== */
+body { font-size: 14px; line-height: 1.75; }
+.item p, ol.steps li, .item .lead, .item ul, .item ol, .tbl td { font-size: 14px; line-height: 1.75; }
+.item .lead { margin-bottom: 20px; }
+.item .lead + p { margin-top: -16px; }
+.item h4, ol.steps li b { font-size: 14px; }
+ol.steps li > div > span { font-size: 14px; }
+.tbl td:first-child { font-size: 14px; }
+.item h3 { font-size: clamp(20px, 2vw, 23px); }
+.cathead p { font-size: 13px; }
+.side a { font-size: 13px; }
+.side a.sub { font-size: 12.5px; }
+.note, .note.tip, .note.warn, .note.mixed, .todo, .checklist, .checklist h4.chk-h { font-size: 12.5px; }
+.note b.lbl, .todo .lbl { font-size: 12px; }
+.ask, .item .ask { font-size: 12.5px; }
+code { font-size: .9em; }
+
+/* map: wrap descriptions instead of truncating */
+.map-area, .map-row { white-space: normal; }
+.map-area small, .map-row .mr { overflow: visible; text-overflow: clip; white-space: normal; line-height: 1.35; }
+.map-row .mr, .map-area small { font-size: 13px; }
+@media (max-width: 1080px) {
+  .map { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .map-fig { width: 190px; margin-left: 8px; }
+  .map-rows { display: flex; flex-direction: column; gap: 4px; }
+  .map-area, .map-row { position: static; transform: none; flex-wrap: wrap; gap: 2px 12px; }
+  .map-area { margin-top: 14px; }
+  .map-row::before { display: none; }
+  .map-row .mn { width: auto; }
+}
 
 
 /* SUGGEST-WHO */
@@ -626,7 +660,7 @@ body::before { background: var(--head); }
   <h1>모바일 B tv 편성 가이드</h1>
   <p>모바일 B tv v.6.0.0부터 편성 시스템과 앱의 편성 운영 구조가 모두 바뀌었어요. 이 가이드는 새 편성 시스템(CARBON)의 편성 가이드예요.<br>찾는 내용이 어디 있는지 모르겠다면 검색을 이용해 주세요.</p>
   <p class="hero-contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L5.5 19.5V16H4z"/><path d="M8.5 9.5h7M8.5 12.5h4.5"/></svg>가이드에 대해 궁금한 점은 모바일서비스기획팀 한인경 매니저, 이나현 매니저에게 문의해 주세요.</p>
-  <p class="hero-note">이 가이드는 6.0.0 출시 전까지 계속 더 다듬어지고 있어요.</p>
+  <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8" opacity=".3"/><path d="M12 3.5a8.5 8.5 0 0 1 8.1 11.1" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>이 가이드는 6.0.0 출시 전까지 계속 더 다듬어지고 있어요.</p>
   <button type="button" class="sg-open" id="sgOpen" hidden>수정 제안 목록<b id="sgN">0</b></button>
 </header>
 
