@@ -39,7 +39,7 @@ for i in issues:
     gid = f"gh-{i['number']}"
     st = "done" if i["state"] == "closed" else "new"
     old = cur.get(gid)
-    if old and old.get("status") in ("done", "hold") and st == "new": st = old["status"]
+    if old and old.get("status") in ("doing", "done", "hold") and st == "new": st = old["status"]
     items.append({"id": gid, "at": i["created_at"], "item": meta.get("item", ""), "title": tm.group(1) if tm else t,
                   "kind": meta.get("kind", "fix"), "text": text[:3000], "ref": (meta.get("ref") or "")[:500],
                   "team": meta.get("team", ""), "name": meta.get("name", ""), "status": st,
